@@ -1,4 +1,4 @@
-package com.bridgelabz.AddressBookSpring.dto;
+/*package com.bridgelabz.AddressBookSpring.dto;
 
 public class ResponseDTO {
-}
+}*/

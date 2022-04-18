@@ -1,6 +1,9 @@
 package com.bridgelabz.AddressBookSpring.controller;
 
+
 import com.bridgelabz.AddressBookSpring.dto.AddressBookDTO;
+import com.bridgelabz.AddressBookSpring.service.AddressBookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/addressbook")
 public class AddressBookController {
+
+    @Autowired
+    private AddressBookService addressBookService;
 
     @RequestMapping(value={"","/","/get"})
     public ResponseEntity<String> getAddressBookData(){
