@@ -5,6 +5,7 @@ import com.bridgelabz.AddressBookSpring.dto.AddressBookDTO;
 import com.bridgelabz.AddressBookSpring.dto.ResponseDTO;
 import com.bridgelabz.AddressBookSpring.entity.AddressBookData;
 import com.bridgelabz.AddressBookSpring.service.AddressBookService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@Slf4j
 @RequestMapping("/addressbook")
 public class AddressBookController {
 
@@ -22,6 +24,7 @@ public class AddressBookController {
 
     @RequestMapping(value={"","/","/get"})
     public ResponseEntity<ResponseDTO> getAddressBookData(){
+        log.info("Inside the Controller");
         List<AddressBookData> addressBookList=null;
         addressBookList=addressBookService.getAddressBookData();
         ResponseDTO responseDTO = new ResponseDTO("All Contact List",addressBookList);
