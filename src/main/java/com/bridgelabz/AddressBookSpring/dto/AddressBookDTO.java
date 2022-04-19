@@ -1,5 +1,10 @@
 package com.bridgelabz.AddressBookSpring.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class AddressBookDTO {
 
     public String firstName;

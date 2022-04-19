@@ -14,6 +14,10 @@ public class AddressBookData {
     private long mobile_no;
     private String email;
 
+    public AddressBookData() {
+
+    }
+
     public AddressBookData(int id, AddressBookDTO addressBookDTO) {
         this.id = id;
         this.firstName=addressBookDTO.firstName;
@@ -25,4 +29,5 @@ public class AddressBookData {
         this.mobile_no=addressBookDTO.mobile_no;
         this.email=addressBookDTO.email;
     }
+
 }
