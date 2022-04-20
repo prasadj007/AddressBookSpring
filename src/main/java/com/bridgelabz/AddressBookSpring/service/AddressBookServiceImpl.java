@@ -2,6 +2,8 @@ package com.bridgelabz.AddressBookSpring.service;
 
 import com.bridgelabz.AddressBookSpring.dto.AddressBookDTO;
 import com.bridgelabz.AddressBookSpring.entity.AddressBookData;
+import com.bridgelabz.AddressBookSpring.repository.AddressBookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,38 +12,39 @@ import java.util.List;
 @Service
 public class AddressBookServiceImpl implements AddressBookService{
 
-   private List<AddressBookData> addressBookList=new ArrayList<>();
+   @Autowired
+   private AddressBookRepository addressBookRepository;
+   //private List<AddressBookData> addressBookList=new ArrayList<>();
 
 
    @Override
    public List<AddressBookData> getAddressBookData() {
-      List<AddressBookData> contactList=new ArrayList<>();
-      contactList.add(new AddressBookData(1,new AddressBookDTO("Arun","Sharma","karve-Nagar","Pune","Maharashtra","411052",8149498627L,"arun@gmail")));
-      return addressBookList;
+      return addressBookRepository.findAll();
    }
 
 
-   public AddressBookData getAddressBookById(int personId) {
-      AddressBookData contactList=null;
-      contactList=new AddressBookData(1,new AddressBookDTO("Arun","Sharma","Karve-Nagar","Pune","Maharashtra","Maharashtra",8149498627L,"bridge@gmail.com"));
-      return contactList;
+   public AddressBookData getAddressBookById(long personId) {
+      return addressBookRepository.findById(personId).orElseThrow();
    }
 
    @Override
    public AddressBookData addNewContact(AddressBookDTO addressBookDTO) {
       AddressBookData addressBookData=null;
-      addressBookData=new AddressBookData(1,addressBookDTO);
-      return addressBookData;
+      addressBookData=new AddressBookData(addressBookDTO);
+      return addressBookRepository.save(addressBookData);
    }
 
    @Override
-   public AddressBookData updateContact() {
-      return null;
+   public AddressBookData updateContact(long personId,AddressBookDTO addressBookDTO) {
+      AddressBookData addressBookData=this.getAddressBookById(personId);
+      addressBookData.updateContact(addressBookDTO);
+      return addressBookRepository.save(addressBookData);
    }
 
    @Override
-   public void deleteContact() {
-
+   public void deleteContact(long personId) {
+      AddressBookData addressBookData=this.getAddressBookById(personId);
+      addressBookRepository.delete(addressBookData);
    }
 
 

@@ -32,26 +32,33 @@ public class AddressBookController {
     }
 
     @GetMapping("/get/{personId}")
-    public ResponseEntity<String> getAddressBookData(@PathVariable("personId") int personId)
+    public ResponseEntity<ResponseDTO> getAddressBookData(@PathVariable("personId") int personId)
     {
-        return new ResponseEntity<String>("Get Call Success for Id:"+personId,HttpStatus.OK);
+        AddressBookData addressBookData=null;
+        addressBookData=addressBookService.getAddressBookById(personId);
+        ResponseDTO responseDTO=new ResponseDTO("Get Call For ID",addressBookData);
+        return new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.OK);
     }
-    @PostMapping("/addnewcontact")
+    @PostMapping("/register")
     public ResponseEntity<ResponseDTO> addNewContact(@RequestBody AddressBookDTO addressBookDTO){
             AddressBookData addressBookData=null;
             addressBookData=addressBookService.addNewContact(addressBookDTO);
-            ResponseDTO responseDTO= new ResponseDTO("Created Conatact data For",addressBookDTO);
+            ResponseDTO responseDTO= new ResponseDTO("User Registered Successfully",addressBookDTO);
         return new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.OK);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<String> updateContact(@RequestBody AddressBookDTO addressBookDTO)
+    @PutMapping("/update/{personId}")
+    public ResponseEntity<ResponseDTO> updateContact(@PathVariable ("personId") long peronId, @RequestBody AddressBookDTO addressBookDTO)
     {
-        return new ResponseEntity<String>("Updated Contact:"+addressBookDTO,HttpStatus.OK);
+        AddressBookData addressBookData=null;
+        addressBookData=addressBookService.updateContact(peronId,addressBookDTO);
+        ResponseDTO responseDTO=new ResponseDTO("Updated Successfully",addressBookData);
+        return new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.OK);
     }
 
     @DeleteMapping("/deletecontact/{personId}")
     public ResponseEntity<String> deleteContact(@PathVariable ("personId") int personId){
+        addressBookService.deleteContact(personId);
         return new ResponseEntity<String>("DeletedContact"+personId,HttpStatus.OK);
     }
 }
