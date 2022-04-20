@@ -2,6 +2,7 @@ package com.bridgelabz.AddressBookSpring.service;
 
 import com.bridgelabz.AddressBookSpring.dto.AddressBookDTO;
 import com.bridgelabz.AddressBookSpring.entity.AddressBookData;
+import com.bridgelabz.AddressBookSpring.exception.AddressBookException;
 import com.bridgelabz.AddressBookSpring.repository.AddressBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class AddressBookServiceImpl implements AddressBookService{
 
 
    public AddressBookData getAddressBookById(long personId) {
-      return addressBookRepository.findById(personId).orElseThrow();
+      return addressBookRepository.findById(personId).orElseThrow(()->new AddressBookException("Person with this ID doesnt exists"));
    }
 
    @Override
