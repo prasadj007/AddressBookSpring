@@ -3,10 +3,13 @@ package com.bridgelabz.AddressBookSpring.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Pattern;
+
 @Getter
 @Setter
 public class AddressBookDTO {
 
+    @Pattern(regexp = "[A-Z]{1}[a-zA-Z\\s]{2,}",message = "Enter Valid Name")
     public String firstName;
     public String lastName;
     public String address;
